@@ -7,14 +7,45 @@
     function SnapHelper() {}
 
     SnapHelper.prototype.directionalSnap = function(obj_being_snapped, obj_snapped_to, direction, duration) {
+      var obj1_pos, obj2_pos;
       if (duration == null) {
         duration = 0;
       }
+      obj1_pos = this.computeDetailedPosition(obj_being_snapped);
+      return obj2_pos = this.computeDetailedPosition(obj_snapped_to);
     };
 
     SnapHelper.prototype.computeDetailedPosition = function(obj) {
-      var details;
-      details = {};
+      var bottom, bottom_left, bottom_right, details, height, left, pos, right, top, top_left, top_right, width;
+      pos = obj.position();
+      width = parseFloat(obj.width());
+      height = parseFloat(obj.height());
+      top = parseFloat(pos.top);
+      left = parseFloat(pos.left);
+      right = left + width;
+      bottom = top + height;
+      top_left = {
+        "x": left,
+        "y": top
+      };
+      top_right = {
+        "x": right,
+        "y": top
+      };
+      bottom_left = {
+        "x": left,
+        "y": bottom
+      };
+      bottom_right = {
+        "x": right,
+        "y": bottom
+      };
+      details = {
+        "top_left": top_left,
+        "top_right": top_right,
+        "bottom_left": bottom_left,
+        "bottom_right": bottom_right
+      };
       return details;
     };
 
