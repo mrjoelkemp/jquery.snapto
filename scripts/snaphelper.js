@@ -12,6 +12,12 @@
       }
     };
 
+    SnapHelper.prototype.computeDetailedPosition = function(obj) {
+      var details;
+      details = {};
+      return details;
+    };
+
     return SnapHelper;
 
   })();
