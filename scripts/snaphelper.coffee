@@ -12,13 +12,16 @@ class SnapHelper
 		snap_points = @getSnappablePoints(obj1_pos, obj2_pos)
 		
 		# Get the distance between the snappable points
+		offsets = @getMovementOffset(snap_points[0], snap_points[1], snap_points[2], snap_points[3])
 		
 		# Snap the objects
-		
+		left_offset = offsets.left_offset
+		top_offset 	= offsets.top_offset		
+		@moveObjectByOffsets(obj_being_snapped, left_offset, top_offset, duration)
 		
 	getMovementOffset: (cp1, cp2, np1, np2) ->
-	# Purpose: 	Computes the difference between 
-	# Returns:	An object with the two offsets		
+	# Purpose: 	Computes the component (x and y) distances between the two sets of passed points
+	# Returns:	An object with the two float offsets		
 		# Distance (top and left) from the neighbor to the piece
 		ntop_to_ptop 	= np1.y - cp1.y
 		nleft_to_pleft 	= np2.x - cp2.x
@@ -71,19 +74,35 @@ class SnapHelper
 
 			# If you're my right neighbor
 			# Then my right side must snap to your left side
-			when "right" 	then points = [bs.top_right, bs.bottom_right, np.top_left, np.bottom_left]
+			when "right" 	then points = [bs.top_right, bs.bottom_right, st.top_left, st.bottom_left]
 
 			# If you're my left neighbor
 			# Then my left side must snap to your right side
-			when "left" 	then points = [bs.top_left, bs.bottom_left, np.top_right, np.bottom_right]
+			when "left" 	then points = [bs.top_left, bs.bottom_left, st.top_right, st.bottom_right]
 
 			# If you're my top neighbor
 			# Then my top side must snap to your bottom side
-			when "top" 		then points = [bs.top_left, bs.top_right, np.bottom_left, np.bottom_right]
+			when "top" 		then points = [bs.top_left, bs.top_right, st.bottom_left, st.bottom_right]
 
 			# If you're my bottom neighbor
 			# Then my bottom side must snap to your top side
-			when "bottom" 	then points = [bs.bottom_left, bs.bottom_right, np.top_left, np.top_right]
+			when "bottom" 	then points = [bs.bottom_left, bs.bottom_right, st.top_left, st.top_right]
 
 		return points
 	
+	moveObjectByOffsets: (obj, left_offset, top_offset, move_speed = 0) ->
+	# Purpose: 	Adds the passed offsets to the object's current position
+		new_left = obj.position().left + left_offset 
+		new_top  = obj.position().top  + top_offset
+
+		@movePiece(obj, new_left, new_top, move_speed)
+
+	movePiece: (obj, x, y, speed = 1900) ->
+	# Purpose:	Animates the passed object to the passed location.
+	# Precond:	obj is a jquery object
+	# Notes:	uses jquery animate with a predefined duration
+	# TODO: This should be a member of a Piece class.
+		obj.animate({
+			'left' : x,
+			'top' : y
+			}, speed)		

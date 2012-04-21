@@ -7,13 +7,17 @@
     function SnapHelper() {}
 
     SnapHelper.prototype.directionalSnap = function(obj_being_snapped, obj_snapped_to, direction, duration) {
-      var obj1_pos, obj2_pos, snap_points;
+      var left_offset, obj1_pos, obj2_pos, offsets, snap_points, top_offset;
       if (duration == null) {
         duration = 0;
       }
       obj1_pos = this.computeDetailedPosition(obj_being_snapped);
       obj2_pos = this.computeDetailedPosition(obj_snapped_to);
-      return snap_points = this.getSnappablePoints(obj1_pos, obj2_pos);
+      snap_points = this.getSnappablePoints(obj1_pos, obj2_pos);
+      offsets = this.getMovementOffset(snap_points[0], snap_points[1], snap_points[2], snap_points[3]);
+      left_offset = offsets.left_offset;
+      top_offset = offsets.top_offset;
+      return this.moveObjectByOffsets(obj_being_snapped, left_offset, top_offset, duration);
     };
 
     SnapHelper.prototype.getMovementOffset = function(cp1, cp2, np1, np2) {
@@ -67,18 +71,38 @@
       points = [];
       switch (direction) {
         case "right":
-          points = [bs.top_right, bs.bottom_right, np.top_left, np.bottom_left];
+          points = [bs.top_right, bs.bottom_right, st.top_left, st.bottom_left];
           break;
         case "left":
-          points = [bs.top_left, bs.bottom_left, np.top_right, np.bottom_right];
+          points = [bs.top_left, bs.bottom_left, st.top_right, st.bottom_right];
           break;
         case "top":
-          points = [bs.top_left, bs.top_right, np.bottom_left, np.bottom_right];
+          points = [bs.top_left, bs.top_right, st.bottom_left, st.bottom_right];
           break;
         case "bottom":
-          points = [bs.bottom_left, bs.bottom_right, np.top_left, np.top_right];
+          points = [bs.bottom_left, bs.bottom_right, st.top_left, st.top_right];
       }
       return points;
+    };
+
+    SnapHelper.prototype.moveObjectByOffsets = function(obj, left_offset, top_offset, move_speed) {
+      var new_left, new_top;
+      if (move_speed == null) {
+        move_speed = 0;
+      }
+      new_left = obj.position().left + left_offset;
+      new_top = obj.position().top + top_offset;
+      return this.movePiece(obj, new_left, new_top, move_speed);
+    };
+
+    SnapHelper.prototype.movePiece = function(obj, x, y, speed) {
+      if (speed == null) {
+        speed = 1900;
+      }
+      return obj.animate({
+        'left': x,
+        'top': y
+      }, speed);
     };
 
     return SnapHelper;
