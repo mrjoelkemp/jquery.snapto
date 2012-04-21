@@ -7,12 +7,23 @@
     function SnapHelper() {}
 
     SnapHelper.prototype.directionalSnap = function(obj_being_snapped, obj_snapped_to, direction, duration) {
-      var obj1_pos, obj2_pos;
+      var obj1_pos, obj2_pos, snap_points;
       if (duration == null) {
         duration = 0;
       }
       obj1_pos = this.computeDetailedPosition(obj_being_snapped);
-      return obj2_pos = this.computeDetailedPosition(obj_snapped_to);
+      obj2_pos = this.computeDetailedPosition(obj_snapped_to);
+      return snap_points = this.getSnappablePoints(obj1_pos, obj2_pos);
+    };
+
+    SnapHelper.prototype.getMovementOffset = function(cp1, cp2, np1, np2) {
+      var nleft_to_pleft, ntop_to_ptop;
+      ntop_to_ptop = np1.y - cp1.y;
+      nleft_to_pleft = np2.x - cp2.x;
+      return {
+        "top_offset": ntop_to_ptop,
+        "left_offset": nleft_to_pleft
+      };
     };
 
     SnapHelper.prototype.computeDetailedPosition = function(obj) {
@@ -47,6 +58,27 @@
         "bottom_right": bottom_right
       };
       return details;
+    };
+
+    SnapHelper.prototype.getSnappablePoints = function(being_snapped_details, snapped_to_details, direction) {
+      var bs, points, st;
+      bs = being_snapped_details;
+      st = snapped_to_details;
+      points = [];
+      switch (direction) {
+        case "right":
+          points = [bs.top_right, bs.bottom_right, np.top_left, np.bottom_left];
+          break;
+        case "left":
+          points = [bs.top_left, bs.bottom_left, np.top_right, np.bottom_right];
+          break;
+        case "top":
+          points = [bs.top_left, bs.top_right, np.bottom_left, np.bottom_right];
+          break;
+        case "bottom":
+          points = [bs.bottom_left, bs.bottom_right, np.top_left, np.top_right];
+      }
+      return points;
     };
 
     return SnapHelper;
