@@ -1,18 +1,55 @@
-<!DOCTYPE html>
+<doctype></doctype>
 <html>
   <head>
     <title>Directional Snapping</title>
-    <script src='scripts/jquery-1.9.min.js'></script>
-    <script src='scripts/jquery.snaphelper.js'></script>
+    <script src="libs/jquery-1.9.min.js"></script>
+    <script src="src/jquery.snaphelper.js"></script>
+    <link href="demo.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class='being-snapped' style="width: 100px; height: 100px; background-color: green; float: left; text-align: center; position: absolute; top: 40px; left: 0;">
-      <span style="color: white">Snap Me</span>
+    <div class="test snap-right">
+      <div class="container">
+        <div class="being-snapped">
+          <span>Snap Me</span>
+        </div>
+        <div class="snapped-to">
+          <span>To Me</span>
+        </div>
+      </div>
+      <button onclick="$('.snap-right .being-snapped').snapTo('.snapped-to', 'right', 10);">Snap Right</button>
     </div>
-    <div class='snapped-to' style="width: 100px; height: 100px; background-color: red; float: left; text-align: center; position: absolute; top: 40px; left: 140px;">
-      <span style="color: white">To Me</span>
-    </div>	
-    
-    <button onclick="$('.being-snapped').snapTo('.snapped-to', 'right');">Snap Right</button>
+    <div class="test snap-left">
+      <div class="container">
+        <div class="snapped-to">
+          <span>To Me</span>
+        </div>
+        <div class="being-snapped">
+          <span>Snap Me</span>
+        </div>
+      </div>
+      <button onclick="$('.snap-left .being-snapped').snapTo('.snapped-to', 'left', 10);">Snap Left</button>
+    </div>
+    <div class="test snap-up">
+      <div class="container">
+        <div class="snapped-to">
+          <span>To Me</span>
+        </div>
+        <div class="being-snapped">
+          <span>Snap Me</span>
+        </div>
+      </div>
+      <button onclick="$('.snap-up .being-snapped').snapTo('.snapped-to', 'up', 10);">Snap Up</button>
+    </div>
+    <div class="test snap-down">
+      <div class="container">
+        <div class="snapped-to">
+          <span>To Me</span>
+        </div>
+        <div class="being-snapped">
+          <span>Snap Me</span>
+        </div>
+      </div>
+      <button onclick="$('.snap-down .being-snapped').snapTo('.snapped-to', 'down', 10);">Snap Down</button>
+    </div>
   </body>
 </html>

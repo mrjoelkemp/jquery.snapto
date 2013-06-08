@@ -5,42 +5,33 @@
   // Precond:  direction = a string with a value (left, right, top, bottom)
   //           duration  = the snapping animation duration. Used with Jquery animate()
   $.fn.snapTo = function ($neighbor, direction, duration) {
+    // Convert to a jquery object if necessary
     if (! ($neighbor instanceof $)) $neighbor = $($neighbor);
+
     if (typeof direction !== 'string') throw 'Direction must be left, right, top, or bottom';
-    if (duration && isNaN(duration)) throw 'Duration must be a number';
 
-    duration = duration || 1900;
+    if (duration !== undefined && isNaN(duration)) throw 'Duration must be a number';
 
-    this.supportedDirections = ['left', 'right', 'top', 'bottom'];
+    duration = duration === undefined ? 1900 : duration;
+
+    this.supportedDirections = ['left', 'right', 'up', 'down'];
 
     direction = direction.toLowerCase();
+
     if (this.supportedDirections.indexOf(direction) === -1) throw 'Unsupported direction';
 
     this.detailedPosition = computeDetailedPosition($(this));
 
     var otherPosition = computeDetailedPosition($neighbor),
         snapPoints    = getSnappablePoints.call(this, otherPosition, direction),
-        offset      = getSnapPointsDistance(snapPoints);
+        offset        = getSnapPointsOffset(snapPoints);
 
     moveByOffset.call(this, offset, duration);
   };
 
   var
-      // Purpose: Computes the distance between the snap points
-      getSnapPointsDistance = function (snapPoints) {
-        var p1 = snapPoints[0],
-            p2 = snapPoints[1],
-            p3 = snapPoints[2],
-            p4 = snapPoints[3];
-
-        return {
-          left: p2.x - p4.x,
-          top:  p1.y - p3.y
-        };
-      },
-
-      // Purpose:  Computes the 4 corner points of the passed object,
-      //            where each point is an object with x and y attributes
+      // Computes the 4 corner points of the passed object,
+      //  where each point is an object with x and y attributes
       computeDetailedPosition = function ($obj) {
         var
             pos     = $obj.position(),
@@ -99,6 +90,20 @@
           case 'bottom':
             return [pos.bottomLeft, pos.bottomRight, np.topLeft, np.topRight];
         }
+      },
+
+      // Purpose: Computes the distance between the snap points
+      getSnapPointsOffset = function (snapPoints) {
+        var p1 = snapPoints[0],
+            p2 = snapPoints[1],
+            p3 = snapPoints[2],
+            p4 = snapPoints[3];
+
+        // Distance from neighborto us
+        return {
+          left: p4.x - p2.x,
+          top:  p3.y - p1.y
+        };
       },
 
       // Moves this by the offsets to simulate a snap

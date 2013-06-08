@@ -1,0 +1,43 @@
+doctype
+html
+  head
+    title Directional Snapping
+    script src="libs/jquery-1.9.min.js"
+    script src="src/jquery.snaphelper.js"
+    link href="demo.css" rel="stylesheet" type="text/css"
+  body
+    .test.snap-right
+      .container
+        .being-snapped
+          span Snap Me
+        .snapped-to
+          span To Me
+      button onclick="$('.snap-right .being-snapped').snapTo('.snapped-to', 'right', 10);" Snap Right
+
+
+    .test.snap-left
+      .container
+        .snapped-to
+          span To Me
+        .being-snapped
+          span Snap Me
+
+      button onclick="$('.snap-left .being-snapped').snapTo('.snapped-to', 'left', 10);" Snap Left
+
+    .test.snap-up
+      .container
+        .snapped-to
+          span To Me
+        .being-snapped
+          span Snap Me
+
+      button onclick="$('.snap-up .being-snapped').snapTo('.snapped-to', 'up', 10);" Snap Up
+
+    .test.snap-down
+      .container
+        .snapped-to
+          span To Me
+        .being-snapped
+          span Snap Me
+
+      button onclick="$('.snap-down .being-snapped').snapTo('.snapped-to', 'down', 10);" Snap Down
