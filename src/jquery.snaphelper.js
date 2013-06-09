@@ -7,24 +7,36 @@
   $.fn.snapTo = function ($neighbor, direction, duration) {
     // Convert to a jquery object if necessary
     if (! ($neighbor instanceof $)) $neighbor = $($neighbor);
-    if (typeof direction !== 'string') throw 'Direction must be left, right, top, or bottom';
+    if (direction && typeof direction !== 'string') throw 'Direction must be left, right, top, or bottom';
     if (duration !== undefined && isNaN(duration)) throw 'Duration must be a number';
 
     // Default the duration if necessary
-    duration = duration === undefined ? 1500 : duration;
+    duration = duration === undefined ? 1000 : duration;
 
     var supportedDirections = ['left', 'right', 'up', 'down'];
     direction = direction.toLowerCase();
 
-    if (supportedDirections.indexOf(direction) === -1) throw 'Unsupported direction';
+    if (direction && supportedDirections.indexOf(direction) === -1) {
+      throw 'Unsupported direction';
+    }
 
     var
         myPosition    = computeDetailedPosition($(this)),
         otherPosition = computeDetailedPosition($neighbor),
+        snapPoints, offset, likelySnapPointInfo;
 
-        snapPoints    = getSnappablePoints(myPosition, otherPosition, direction),
+    // If no direction was supplied,
+    // find the most appropriate snapping points
+    if (! direction) {
+      likelySnapPointInfo = getMostLikelySnap(myPosition, otherPosition);
+      snapPoints = likelySnapPointInfo[0];
+      offset = likelySnapPointInfo[1];
 
-        offset        = getSnapPointsOffset(snapPoints);
+    // If a direction was supplied
+    } else {
+      snapPoints    = getSnappablePoints(myPosition, otherPosition, direction);
+      offset        = getSnapPointsOffset(snapPoints);
+    }
 
     // Snap the objects together
     moveByOffset.call(this, offset, duration);
@@ -94,6 +106,32 @@
           case 'down':
             return [pos.bottomLeft, pos.bottomRight, np.topLeft, np.topRight];
         }
+      },
+
+      // Returns a list of the most likely snapPoint and its offset
+      // from our position
+      getMostLikelySnap = function (myPosition, neighborPosition, supportedDirections) {
+        var smallestOffset = 0, offset,
+            i, l, multipleOffsets, multipleSnapPoints,
+            snapPoints;
+
+        for (i = 0, l = supportedDirections.length; i < l; i++) {
+          multipleSnapPoints.push(getSnappablePoints(myPosition, neighborPosition, supportedDirections[i]));
+          multipleOffsets.push(getSnappablePoints(multipleSnapPoints[i]));
+        }
+
+        // Find the snapPoints with the smallest manhattan distance
+        for (i = 0, l = multipleOffsets.length; i < l; i++) {
+          offset =  Math.abs(myPosition.left - multipleOffsets[i].left) +
+                    Math.abs(myPosition.top - multipleOffsets[i].top);
+
+          if (offset < smallestOffset) {
+            smallestOffset = offset;
+            snapPoints = multipleSnapPoints[i];
+          }
+        }
+
+        return [snapPoints, smallestOffset];
       },
 
       // Purpose: Computes the distance between the snap points

@@ -40,26 +40,32 @@
   }
 
   // Test-specific
-  &.snap-right > .container {
-    .snapped-to {
-      left: 80px;
+  &.snap-right {
+    width: 20%;
+    .container {
+      .snapped-to {
+        left: 80px;
+      }
     }
   }
 
-  &.snap-left > .container{
-    .being-snapped {
-      top: 0;
-      left: 80px;
-    }
-    .snapped-to {
-      top: 0;
-      left: 0;
+  &.snap-left {
+    width: 80%;
+    .container{
+      .being-snapped {
+        top: 0;
+        left: 80px;
+      }
+      .snapped-to {
+        top: 0;
+        left: 0;
+      }
     }
   }
 
   &.snap-up {
     margin-bottom: 30px;
-
+    width: 20%;
     .container {
       .being-snapped {
         height: 60px;
@@ -82,6 +88,8 @@
   }
 
   &.snap-down {
+    width: 80%;
+    margin-bottom: 80px;
     .container {
       .being-snapped {
         height: 60px;
@@ -101,5 +109,9 @@
       position: relative;
       left: 70px;
     }
+  }
+
+  &.snap-auto {
+    width: 100%;
   }
 }
