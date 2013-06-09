@@ -1,44 +1,51 @@
-span {
-	color: white;
-}
-
-.container {
-	width: 100%;
-	height: 80%;
-	float: left;
-	position: relative;
-}
-
-.being-snapped { 
-	width: 100px; 
-	height: 100px; 
-	background-color: green; 
-	text-align: center;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-.snapped-to {
-	width: 100px; 
-	height: 100px; 
-	background-color: red; 
-	text-align: center; 
-	position: absolute;
-	top: 0; 
-	left: 140px;
-}
-
-button {
-	float: left;
-}
-
 .test {
   width: 100%;
   height: 150px;
   float: left;
   margin-bottom: 20px;
-  &.snap-left {
+  .container {
+    width: 100%;
+    height: 80%;
+    float: left;
+    position: relative;
+    span {
+      color: white;
+    }
+    
+    .being-snapped { 
+      width: 100px; 
+      height: 100px; 
+      background-color: green; 
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .snapped-to {
+      width: 100px; 
+      height: 100px; 
+      background-color: red; 
+      text-align: center; 
+      position: absolute;
+      top: 0; 
+      left: 0;
+    }
+
+  }
+  
+  button {
+    float: left;  
+  }
+
+  // Test-specific
+  &.snap-right > .container {
+    .snapped-to {
+      left: 140px;
+    }
+  }
+
+  &.snap-left > .container{
     .being-snapped {
       top: 0;
       left: 140px;
@@ -46,6 +53,29 @@ button {
     .snapped-to {
       top: 0;
       left: 0;
+    }
+  }
+
+  &.snap-up {
+
+    .container {
+      .being-snapped {
+        height: 60px;
+        width: 60px;
+        top: 80px;
+        left: 0;
+      }
+
+      .snapped-to {
+        height: 60px;
+        width: 60px;
+        top: 0;
+        left: 0;
+      }
+    }
+    button {
+      position: relative;
+      left: 70px;
     }
   }
 }

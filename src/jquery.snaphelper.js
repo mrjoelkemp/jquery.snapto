@@ -82,12 +82,12 @@
 
           // If you're my top neighbor
           // Then my top side must snap to your bottom side
-          case 'top':
+          case 'up':
             return [pos.topLeft, pos.topRight, np.bottomLeft, np.bottomRight];
 
           // If you're my bottom neighbor
           // Then my bottom side must snap to your top side
-          case 'bottom':
+          case 'down':
             return [pos.bottomLeft, pos.bottomRight, np.topLeft, np.topRight];
         }
       },
