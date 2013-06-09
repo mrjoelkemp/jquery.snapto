@@ -1,34 +1,38 @@
 ;(function ($) {
   'use strict';
 
-  // Purpose:  Snaps the calling object to the second object in the direction specified
+  // Snaps the calling object to the second object in the direction specified
   // Precond:  direction = a string with a value (left, right, top, bottom)
   //           duration  = the snapping animation duration. Used with Jquery animate()
   $.fn.snapTo = function ($neighbor, direction, duration) {
     // Convert to a jquery object if necessary
     if (! ($neighbor instanceof $)) $neighbor = $($neighbor);
-
     if (typeof direction !== 'string') throw 'Direction must be left, right, top, or bottom';
-
     if (duration !== undefined && isNaN(duration)) throw 'Duration must be a number';
 
-    duration = duration === undefined ? 1900 : duration;
+    // Default the duration if necessary
+    duration = duration === undefined ? 1500 : duration;
 
-    this.supportedDirections = ['left', 'right', 'up', 'down'];
-
+    var supportedDirections = ['left', 'right', 'up', 'down'];
     direction = direction.toLowerCase();
 
-    if (this.supportedDirections.indexOf(direction) === -1) throw 'Unsupported direction';
+    if (supportedDirections.indexOf(direction) === -1) throw 'Unsupported direction';
 
-    this.detailedPosition = computeDetailedPosition($(this));
+    var
+        myPosition    = computeDetailedPosition($(this)),
+        otherPosition = computeDetailedPosition($neighbor),
 
-    var otherPosition = computeDetailedPosition($neighbor),
-        snapPoints    = getSnappablePoints.call(this, otherPosition, direction),
+        snapPoints    = getSnappablePoints(myPosition, otherPosition, direction),
+
         offset        = getSnapPointsOffset(snapPoints);
 
+    // Snap the objects together
     moveByOffset.call(this, offset, duration);
   };
 
+  ///////////////////////
+  //  HELPERS
+  ///////////////////////
   var
       // Computes the 4 corner points of the passed object,
       //  where each point is an object with x and y attributes
@@ -64,9 +68,9 @@
 
       // Purpose: Determines the points that we should snap to on the neighbor in the passed direction
       // Returns: A 4-element list containing the points of interest from both pieces.
-      getSnappablePoints = function (neighborPosition, direction) {
-        var pos = this.detailedPosition,
-            np = neighborPosition;
+      getSnappablePoints = function (myPosition, neighborPosition, direction) {
+        var pos = myPosition,
+            np  = neighborPosition;
 
         switch (direction) {
 
@@ -99,7 +103,7 @@
             p3 = snapPoints[2],
             p4 = snapPoints[3];
 
-        // Distance from neighborto us
+        // Distance from neighbor to us
         return {
           left: p4.x - p2.x,
           top:  p3.y - p1.y
