@@ -14,7 +14,6 @@ html
           span To Me
       button onclick="$('.snap-right .being-snapped').snapTo('.snap-right .snapped-to', 'right', 10);" Snap Right
 
-
     .test.snap-left
       .container
         .snapped-to
@@ -35,9 +34,9 @@ html
 
     .test.snap-down
       .container
-        .snapped-to
-          span To Me
         .being-snapped
           span Snap Me
+        .snapped-to
+          span To Me
 
-      button onclick="$('.snap-down .being-snapped').snapTo('.snapped-to', 'down', 10);" Snap Down
+      button onclick="$('.snap-down .being-snapped').snapTo('.snap-down .snapped-to', 'down', 10);" Snap Down

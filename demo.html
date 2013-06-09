@@ -42,14 +42,14 @@
     </div>
     <div class="test snap-down">
       <div class="container">
-        <div class="snapped-to">
-          <span>To Me</span>
-        </div>
         <div class="being-snapped">
           <span>Snap Me</span>
         </div>
+        <div class="snapped-to">
+          <span>To Me</span>
+        </div>
       </div>
-      <button onclick="$('.snap-down .being-snapped').snapTo('.snapped-to', 'down', 10);">Snap Down</button>
+      <button onclick="$('.snap-down .being-snapped').snapTo('.snap-down .snapped-to', 'down', 10);">Snap Down</button>
     </div>
   </body>
 </html>
