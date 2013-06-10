@@ -14,6 +14,8 @@ $(selector).snapTo(neighborSelector, direction, animationDelay);
 
 // Example
 $('.obj-being-snapped').snapTo('.another-obj', 'right', 10);
+// Chooses the best direction
+$('.obj-being-snapped').snapTo('.another-obj');
 ```
 
 * `neighborSelector`: the selector (or jquery object) of the object to snap to.
