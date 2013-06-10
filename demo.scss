@@ -1,5 +1,9 @@
+body > div {
+  float: left;
+
+}
 .test {
-  width: 100%;
+  width: 180px;
   height: 120px;
   float: left;
   margin-bottom: 10px;
@@ -41,7 +45,8 @@
 
   // Test-specific
   &.snap-right {
-    width: 20%;
+    // width: 20%;
+    min-width: 100px;
     .container {
       .snapped-to {
         left: 80px;
@@ -50,7 +55,7 @@
   }
 
   &.snap-left {
-    width: 80%;
+    // width: 80%;
     .container{
       .being-snapped {
         top: 0;
@@ -65,7 +70,7 @@
 
   &.snap-up {
     margin-bottom: 30px;
-    width: 20%;
+    // width: 20%;
     .container {
       .being-snapped {
         top: 80px;
@@ -86,7 +91,7 @@
   }
 
   &.snap-down {
-    width: 80%;
+    // width: 80%;
     margin-bottom: 80px;
     .container {
       .being-snapped {
@@ -106,7 +111,7 @@
   }
 
   &.snap-auto {
-    width: 100%;
+    // width: 100%;
     .being-snapped {
       top: 0;
       left: 0;

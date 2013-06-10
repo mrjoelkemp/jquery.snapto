@@ -7,60 +7,66 @@
     <link href="demo.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="test snap-right">
-      <div class="container">
-        <div class="being-snapped">
-          <span>Snap Me</span>
+    <div style="width: 100%;">
+      <div class="test snap-right">
+        <div class="container">
+          <div class="being-snapped">
+            <span>Snap Me</span>
+          </div>
+          <div class="snapped-to">
+            <span>To Me</span>
+          </div>
         </div>
-        <div class="snapped-to">
-          <span>To Me</span>
-        </div>
+        <button onclick="$('.snap-right .being-snapped').snapTo('.snap-right .snapped-to', 'right', 10);">Snap Right</button>
       </div>
-      <button onclick="$('.snap-right .being-snapped').snapTo('.snap-right .snapped-to', 'right', 10);">Snap Right</button>
+      <div class="test snap-left">
+        <div class="container">
+          <div class="snapped-to">
+            <span>To Me</span>
+          </div>
+          <div class="being-snapped">
+            <span>Snap Me</span>
+          </div>
+        </div>
+        <button onclick="$('.snap-left .being-snapped').snapTo('.snap-left .snapped-to', 'left', 10);">Snap Left</button>
+      </div>
     </div>
-    <div class="test snap-left">
-      <div class="container">
-        <div class="snapped-to">
-          <span>To Me</span>
+    <div style="width: 100%;">
+      <div class="test snap-up">
+        <div class="container">
+          <div class="snapped-to">
+            <span>To Me</span>
+          </div>
+          <div class="being-snapped">
+            <span>Snap Me</span>
+          </div>
         </div>
-        <div class="being-snapped">
-          <span>Snap Me</span>
-        </div>
+        <button onclick="$('.snap-up .being-snapped').snapTo('.snap-up .snapped-to', 'up', 10);">Snap Up</button>
       </div>
-      <button onclick="$('.snap-left .being-snapped').snapTo('.snap-left .snapped-to', 'left', 10);">Snap Left</button>
+      <div class="test snap-down">
+        <div class="container">
+          <div class="being-snapped">
+            <span>Snap Me</span>
+          </div>
+          <div class="snapped-to">
+            <span>To Me</span>
+          </div>
+        </div>
+        <button onclick="$('.snap-down .being-snapped').snapTo('.snap-down .snapped-to', 'down', 10);">Snap Down</button>
+      </div>
     </div>
-    <div class="test snap-up">
-      <div class="container">
-        <div class="snapped-to">
-          <span>To Me</span>
+    <div style="width: 100%;">
+      <div class="test snap-auto">
+        <div class="container">
+          <div class="being-snapped">
+            <span>Snap Me</span>
+          </div>
+          <div class="snapped-to">
+            <span>To Me</span>
+          </div>
         </div>
-        <div class="being-snapped">
-          <span>Snap Me</span>
-        </div>
+        <button onclick="$('.snap-auto .being-snapped').snapTo('.snap-auto .snapped-to');">Snap Auto</button>
       </div>
-      <button onclick="$('.snap-up .being-snapped').snapTo('.snap-up .snapped-to', 'up', 10);">Snap Up</button>
-    </div>
-    <div class="test snap-down">
-      <div class="container">
-        <div class="being-snapped">
-          <span>Snap Me</span>
-        </div>
-        <div class="snapped-to">
-          <span>To Me</span>
-        </div>
-      </div>
-      <button onclick="$('.snap-down .being-snapped').snapTo('.snap-down .snapped-to', 'down', 10);">Snap Down</button>
-    </div>
-    <div class="test snap-auto">
-      <div class="container">
-        <div class="being-snapped">
-          <span>Snap Me</span>
-        </div>
-        <div class="snapped-to">
-          <span>To Me</span>
-        </div>
-      </div>
-      <button onclick="$('.snap-auto .being-snapped').snapTo('.snap-auto .snapped-to');">Snap Auto</button>
     </div>
   </body>
 </html>

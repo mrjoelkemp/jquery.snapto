@@ -6,46 +6,49 @@ html
     script src="src/jquery.snaphelper.js"
     link href="demo.css" rel="stylesheet" type="text/css"
   body
-    .test.snap-right
-      .container
-        .being-snapped
-          span Snap Me
-        .snapped-to
-          span To Me
-      button onclick="$('.snap-right .being-snapped').snapTo('.snap-right .snapped-to', 'right', 10);" Snap Right
+    div style="width: 100%;"
+      .test.snap-right
+        .container
+          .being-snapped
+            span Snap Me
+          .snapped-to
+            span To Me
+        button onclick="$('.snap-right .being-snapped').snapTo('.snap-right .snapped-to', 'right', 10);" Snap Right
 
-    .test.snap-left
-      .container
-        .snapped-to
-          span To Me
-        .being-snapped
-          span Snap Me
+      .test.snap-left
+        .container
+          .snapped-to
+            span To Me
+          .being-snapped
+            span Snap Me
 
-      button onclick="$('.snap-left .being-snapped').snapTo('.snap-left .snapped-to', 'left', 10);" Snap Left
+        button onclick="$('.snap-left .being-snapped').snapTo('.snap-left .snapped-to', 'left', 10);" Snap Left
 
-    .test.snap-up
-      .container
-        .snapped-to
-          span To Me
-        .being-snapped
-          span Snap Me
+    div style="width: 100%;"
+      .test.snap-up
+        .container
+          .snapped-to
+            span To Me
+          .being-snapped
+            span Snap Me
 
-      button onclick="$('.snap-up .being-snapped').snapTo('.snap-up .snapped-to', 'up', 10);" Snap Up
+        button onclick="$('.snap-up .being-snapped').snapTo('.snap-up .snapped-to', 'up', 10);" Snap Up
 
-    .test.snap-down
-      .container
-        .being-snapped
-          span Snap Me
-        .snapped-to
-          span To Me
+      .test.snap-down
+        .container
+          .being-snapped
+            span Snap Me
+          .snapped-to
+            span To Me
 
-      button onclick="$('.snap-down .being-snapped').snapTo('.snap-down .snapped-to', 'down', 10);" Snap Down
+        button onclick="$('.snap-down .being-snapped').snapTo('.snap-down .snapped-to', 'down', 10);" Snap Down
+    div style="width: 100%;"
 
-    .test.snap-auto
-      .container
-        .being-snapped
-          span Snap Me
-        .snapped-to
-          span To Me
+      .test.snap-auto
+        .container
+          .being-snapped
+            span Snap Me
+          .snapped-to
+            span To Me
 
-      button onclick="$('.snap-auto .being-snapped').snapTo('.snap-auto .snapped-to');" Snap Auto
+        button onclick="$('.snap-auto .being-snapped').snapTo('.snap-auto .snapped-to');" Snap Auto

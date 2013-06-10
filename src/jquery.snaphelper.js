@@ -11,7 +11,7 @@
     if (duration !== undefined && isNaN(duration)) throw 'Duration must be a number';
 
     // Default the duration if necessary
-    duration = duration === undefined ? 1000 : duration;
+    duration = duration === undefined ? 10 : duration;
 
     var supportedDirections = ['left', 'right', 'up', 'down'];
 
