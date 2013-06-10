@@ -68,8 +68,6 @@
     width: 20%;
     .container {
       .being-snapped {
-        height: 60px;
-        width: 60px;
         top: 80px;
         left: 0;
       }
@@ -92,15 +90,11 @@
     margin-bottom: 80px;
     .container {
       .being-snapped {
-        height: 60px;
-        width: 60px;
         top: 0;
         left: 0;
       }
 
       .snapped-to {
-        height: 60px;
-        width: 60px;
         top: 80px;
         left: 0;
       }
@@ -113,5 +107,17 @@
 
   &.snap-auto {
     width: 100%;
+    .being-snapped {
+      top: 0;
+      left: 0;
+    }
+    .snapped-to {
+      top: 60px;
+      left: 60px;
+    }
+    button {
+      position: relative;
+      left: 140px;
+    }
   }
 }

@@ -14,10 +14,13 @@
     duration = duration === undefined ? 1000 : duration;
 
     var supportedDirections = ['left', 'right', 'up', 'down'];
-    direction = direction.toLowerCase();
 
-    if (direction && supportedDirections.indexOf(direction) === -1) {
-      throw 'Unsupported direction';
+    if (direction) {
+      direction = direction.toLowerCase();
+
+      if (supportedDirections.indexOf(direction) === -1) {
+        throw 'Unsupported direction';
+      }
     }
 
     var
@@ -28,7 +31,7 @@
     // If no direction was supplied,
     // find the most appropriate snapping points
     if (! direction) {
-      likelySnapPointInfo = getMostLikelySnap(myPosition, otherPosition);
+      likelySnapPointInfo = getMostLikelySnap(myPosition, otherPosition, supportedDirections);
       snapPoints = likelySnapPointInfo[0];
       offset = likelySnapPointInfo[1];
 
@@ -111,27 +114,27 @@
       // Returns a list of the most likely snapPoint and its offset
       // from our position
       getMostLikelySnap = function (myPosition, neighborPosition, supportedDirections) {
-        var smallestOffset = 0, offset,
-            i, l, multipleOffsets, multipleSnapPoints,
-            snapPoints;
+        var smallestOffset, multipleOffsets = [], multipleSnapPoints = [],
+            offset, snapPoints, smallestOffsetIndex, i, l;
 
         for (i = 0, l = supportedDirections.length; i < l; i++) {
           multipleSnapPoints.push(getSnappablePoints(myPosition, neighborPosition, supportedDirections[i]));
-          multipleOffsets.push(getSnappablePoints(multipleSnapPoints[i]));
+          multipleOffsets.push(getSnapPointsOffset(multipleSnapPoints[i]));
         }
 
         // Find the snapPoints with the smallest manhattan distance
         for (i = 0, l = multipleOffsets.length; i < l; i++) {
-          offset =  Math.abs(myPosition.left - multipleOffsets[i].left) +
-                    Math.abs(myPosition.top - multipleOffsets[i].top);
+          offset = Math.abs(multipleOffsets[i].left) + Math.abs(multipleOffsets[i].top);
 
-          if (offset < smallestOffset) {
+          if (smallestOffset === undefined || offset < smallestOffset) {
             smallestOffset = offset;
+            // Remember the winning offset
+            smallestOffsetIndex = i;
             snapPoints = multipleSnapPoints[i];
           }
         }
 
-        return [snapPoints, smallestOffset];
+        return [snapPoints, multipleOffsets[smallestOffsetIndex]];
       },
 
       // Purpose: Computes the distance between the snap points
