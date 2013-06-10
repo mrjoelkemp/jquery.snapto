@@ -5,7 +5,7 @@ Jquery plugin for snapping an absolutely positioned element to another element i
 
 ### Demo
 
-http://jsfiddle.net/mrjoelkemp/5YuKr/1/
+http://jsfiddle.net/mrjoelkemp/5YuKr/4/
 
 ### Usage
 
